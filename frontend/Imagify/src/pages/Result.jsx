@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { useState } from 'react'
 import {motion} from 'framer-motion'
+import { AppContext } from '../contexts/AppContext'
 
 const Result = () => {
 
@@ -10,10 +11,24 @@ const Result = () => {
   const [isImageLoaded,setIsImageLoaded]=useState(true)
   const [loading,setLoading]=useState(false)
   const [input,setInput]=useState("")
+
+  const {generateImage}=useContext(AppContext)
   
 
   const onSubmitHandler=async(e)=>{
+    console.log("hii")
 
+    e.preventDefault()
+    setLoading(true)
+    if(input){
+      const image=await generateImage(input)
+      console.log(image)
+      if(image){
+        setIsImageLoaded(true)
+        setImage(image)
+      }
+    }
+    setLoading(false)
   }
   
 
@@ -40,9 +55,9 @@ const Result = () => {
 
       {!isImageLoaded &&
       <div className='flex w-full max-w-xl bg-neutral-500 text-white text-sm p-0.5 mt-10 rounded-full'>
-        <input type="text" placeholder='Describe what you want to generate' className='flex-1 bg-transparent outline-none ml-8 max-sm:w-20 placeholder-color'/>
+        <input  onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Describe what you want to generate' className='flex-1 bg-transparent outline-none ml-8 max-sm:w-20 placeholder-color'/>
 
-        <button onChange={(e)=>setInput(e.target.value)} value={input} type='submit' className='bg-zinc-900 px-8 sm:px-16 py-3 rounded-full text-white'>
+        <button type='submit' onClick={onSubmitHandler} className='bg-zinc-900 px-8 sm:px-16 py-3 rounded-full text-white cursor-pointer'>
           Generate
         </button>
     </div>}

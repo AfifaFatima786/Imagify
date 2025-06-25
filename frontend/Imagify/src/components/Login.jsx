@@ -21,8 +21,10 @@ function Login() {
         try{
 
             if(state=='Login'){
-                const {data}=await axios.post(backendUrl+'/api/user/login',{email,password})
-            
+              const { data } = await axios.post(`${backendUrl}/api/user/login`, { email, password }, {
+  withCredentials: true
+});
+
 
             if(data.success){
                 setToken(data.token)
@@ -37,9 +39,10 @@ function Login() {
 
 
             else{
+const { data } = await axios.post(`${backendUrl}/api/user/register`, { name, email, password }, {
+  withCredentials: true
+});
 
-                const {data}=await axios.post(backendUrl+'/api/user/register',{name,email,password})
-            
 
             if(data.success){
                 setToken(data.token)
@@ -106,7 +109,7 @@ function Login() {
 
             <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>
 
-            <button className='bg-blue-600 w-full text-white py-2 rounded-full' >{state === 'Login' ? "login" : "create account"}</button>
+            <button className='bg-blue-600 w-full text-white py-2 rounded-full cursor-pointer' >{state === 'Login' ? "login" : "create account"}</button>
 
 
             {state=='Login' ?
