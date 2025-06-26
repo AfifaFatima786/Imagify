@@ -50,6 +50,7 @@ const AppContextProvider=(props)=>{
                 return data.resultImage
             }
             else{
+                console.log(data)
                 toast.error(data.message)
                 if(data.creditBalance===0){
                     navigate('/buy')
