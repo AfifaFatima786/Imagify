@@ -36,7 +36,7 @@ function Navbar() {
                     <img src={assets.profile_icon} className='w-10 drop-shadow' alt="" />
                     <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
                         <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
-                            <li onClick={logout} className='py-1 px-2cursor-pointer pr-10'>Logout</li>
+                            <li onClick={logout} className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                             
                         </ul>
 
