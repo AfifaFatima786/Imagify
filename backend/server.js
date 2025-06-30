@@ -18,7 +18,7 @@ app.use(express.json())
 
 
 app.use(cors({
-  origin: 'https://imagify-sandy.vercel.app',   
+  origin: ['https://imagify-nine-phi.vercel.app', 'http://localhost:5173' ], 
   credentials: true                  
 }));
 app.use(cookieParser());
