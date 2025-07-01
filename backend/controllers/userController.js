@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const razorpay=require('razorpay')
 const dotenv=require('dotenv')
-const transactionModel=require('../model/transactionModel')
+const transactionModel=require('../model/transactionModel');
+const cookieOptions = require("../utils/cookieOptions");
 
 dotenv.config()
 
@@ -32,7 +33,7 @@ module.exports.registerUser = async function (req, res) {
 
             let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-            res.cookie("token", token);
+            res.cookie("token", token,cookieOptions);
             res.json({ success: true, token, user: user.name });
         });
 
@@ -64,8 +65,8 @@ module.exports.loginUser=async function(req,res){
     else{
 
     let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-
-            res.cookie("token", token);
+        console.log("cookie not setting")
+            res.cookie("token", token,cookieOptions);
             res.json({ success: true, token, user: user.name });
 
     }

@@ -15,7 +15,10 @@ module.exports = async function (req, res, next) {
         const user=await userModel.findById(decoded.id)
         
         // req.user = user;
-
+        if (!user) {
+            return res.status(401).json({ success: false, message: "User not found" });
+        }
+        
         req.user = {
             id: user._id,
             name: user.name,
@@ -29,9 +32,6 @@ module.exports = async function (req, res, next) {
             req.user.userId=decoded.id;
         }
        
-        if (!user) {
-            return res.status(401).json({ success: false, message: "User not found" });
-        }
 
          
         next(); 
