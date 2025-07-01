@@ -65,8 +65,10 @@ module.exports.loginUser=async function(req,res){
     else{
 
     let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        console.log("cookie not setting")
+
+        console.log("cookie not setting", token)
             res.cookie("token", token,cookieOptions);
+            console.log("cookie kyu nhi set ho rhi ")
             res.json({ success: true, token, user: user.name });
 
     }
