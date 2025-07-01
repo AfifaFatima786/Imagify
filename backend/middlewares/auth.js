@@ -3,7 +3,6 @@ const userModel = require("../model/userModel");
 
 module.exports = async function (req, res, next) {
     const token = req.cookies.token;
-    // console.log(req);
     if (!token) {
         return res.status(401).json({ success: false, message: "Not Authorised. Login Again" });
     }
@@ -25,10 +24,10 @@ module.exports = async function (req, res, next) {
             email: user.email,
             creditBalance: user.creditBalance
         };
-        console.log(req.user)
+
 
         if(decoded.id){
-            console.log(req.user);
+
             req.user.userId=decoded.id;
         }
        
@@ -36,7 +35,6 @@ module.exports = async function (req, res, next) {
          
         next(); 
     } catch (err) {
-        console.log("idhr erro ra rhi")
         return res.status(401).json({ success: false, message: err.message });
     }
 };

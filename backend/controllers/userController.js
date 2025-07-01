@@ -38,7 +38,6 @@ module.exports.registerUser = async function (req, res) {
         });
 
     } catch (err) {
-        console.log(err.message);
         res.json({ success: false, message: err.message });
     }
 };
@@ -66,16 +65,14 @@ module.exports.loginUser=async function(req,res){
 
     let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-        console.log("cookie not setting", token)
             res.cookie("token", token,cookieOptions);
-            console.log("cookie kyu nhi set ho rhi ")
+
             res.json({ success: true, token, user: user.name });
 
     }
     })}
 
     catch (err) {
-        console.log(err.message);
         res.json({ success: false, message: err.message });
     }
 
@@ -85,16 +82,11 @@ module.exports.loginUser=async function(req,res){
 
 module.exports.userCredits=async function(req,res){
 
-    try{
-        console.log(req.user.id,"id waala")
-        const userId=req.user.id;
-        
+    try{        
         res.json({success:true,credits:req.user.creditBalance,user:{name:req.user.name}})
     }
 
     catch (err) {
-        console.log(err.message);
-        console.log("IDhr error hai dost ");
         res.json({ success: false, message: err.message });
     }
 
@@ -111,10 +103,7 @@ module.exports.paymentRazorpay=async(req,res)=>{
     try{
         const userId=req.user.id
         const {planId}=req.body;
-        // console.log(userId+"y hai")
-         console.log(planId)
-
-        const userData=await userModel.findById(userId)
+    
 
         if(!userId || !planId){
             return res.json({success:false,message:'Missing Details'})
@@ -162,7 +151,7 @@ module.exports.paymentRazorpay=async(req,res)=>{
 
         await razorpayInstance.orders.create(options,(error,order)=>{
             if(error){
-                console.log(error)
+
                 return res.json({success:false,message:error})
             }
 
@@ -174,7 +163,6 @@ module.exports.paymentRazorpay=async(req,res)=>{
 
     }
     catch(error){
-        console.log(error)
         res.json({success:false,message:error.message})
     }
 }
@@ -208,7 +196,6 @@ module.exports.verifyRazorpay=async(req,res)=>{
 
     }
     catch(error){
-        console.log(error)
         res,json({success:false,message:error.message})
     }
 }
